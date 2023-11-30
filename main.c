@@ -1,5 +1,51 @@
 /*
-    System 1: Simple ATM Bank System
+    System 3: Based from System 2
+    Scenario: Bank needs better system which uses Algorithms.
+    Admin uses Sort Algorithm and Search for looking to users
+    Customers can filter their history data
+*/
+
+#include <stdio.h>
+#include <string.h>
+
+void System_1();
+void System_2();
+
+void AdminMenu();
+void CustomerMenu(char[], int*);
+
+int main() {
+    int choice;
+
+    do
+    {
+        printf("----- Choose System! -----\n");
+        printf("1 Basic ATM System\n");
+        printf("2 2.0 ATM System - Inactive\n");
+        printf("3 3.0 ATM System - Inactive\n");
+        printf("0 Exit\n");
+        printf("> Select System: ");
+        scanf("%d", &choice);
+
+        system("cls");
+
+        switch(choice)
+        {
+        case 0:
+            return 0;
+        case 1:
+            System_1();
+            break;
+        case 2:
+            System_2();
+            break;
+        }
+
+    } while(1);
+
+}
+
+/*  System 1: Simple ATM Bank System
     Scenario: There is single account which need password
     lock which can withdraw/deposit, check balance, update account data.
     - account data: First Name, Last Name, Middle Initial(Optional), Born Sex and BoD
@@ -10,23 +56,8 @@
     - Looping
         - Sentinel-Repetition(Event Based Control)
 */
-/*
-    System 2: Admin and User ATM Bank System
-    Scenario: There is 2 Types of user the bank admins and the customers of bank which is the users.
-    Admins controls who can create account and retrieval of their account
-    Customers can manage their money; they can withdraw/deposit, check balance, update account data
-*/
-/*
-    System 3: Based from System 2
-    Scenario: Bank needs better system which uses Algorithms.
-    Admin uses Sort Algorithm and Search for looking to users
-    Customers can filter their history data
-*/
-
-#include <stdio.h>
-
-int main() {
-
+void System_1()
+{
     const int MAX = 50;
     int pin = 1234, balance = 10000, temp;
     char f_name[MAX], l_name[MAX], m_name[MAX], b_sex[MAX], bod[MAX];
@@ -141,20 +172,142 @@ int main() {
             printf("Invalid Input!");
             break;
         }
-    }while(isLogin);
+    } while(isLogin);
+}
+/* Q & A?
+    Q: why use if else chain in the pin and use switch in mainmenu?
+    A: using if else chain in pin because it has 2 options to go to but 1 of them uses a dynamic variable(pin)
+         while the mainmenu has 4 specific options and does not use dynamic variable or range value
 
-    return 0;
+    Q: why use do while loop?
+    A: because you need to run the functionality first before checking if their sentinel is suggesting to stop or not
+
+    Q: what difference of continue and break int switch?
+    A: There is non when it comes to using conditional
+*/
+
+/*  System 2: Admin and User ATM Bank System
+    Scenario: There is 2 Types of user the bank admins and the customers of bank which is the users.
+    Admins controls who can create account and retrieval of their account
+    Customers can manage their money; they can withdraw/deposit, check balance, update account data
+*/
+void System_2()
+{
+    char id[50];
+    int pin, balance = 1000;
+
+    do
+    {
+        printf("Input ID: ");
+        scanf("%s", &id);
+        printf("Input pin: ");
+        scanf("%d", &pin);
+
+        if (!strcmp(id, "0"))
+            break;
+        else if (toupper(id[0]) == 'A')
+        {
+            if (!strcmp(id, "A-Ian") && pin == 987)
+                AdminMenu();
+            else
+            {
+                printf("Invalid User!\n");
+                system("pause");
+                system("cls");
+            }
+        }
+        else if (!strcmp(tolower(id), "Ian") && pin == 1234)
+            CustomerMenu(id, &balance);
+        else
+        {
+            printf("Incorrect Pin or ID\n");
+            system("pause");
+            system("cls");
+        }
+
+    }while (1);
+
+    system("cls");
 }
 
-// Q & A?
-    // Q: why use if else chain in the pin and use switch in mainmenu?
-    // A: using if else chain in pin because it has 2 options to go to but 1 of them uses a dynamic variable(pin)
-    //      while the mainmenu has 4 specific options and does not use dynamic variable or range value
+void AdminMenu()
+{
+    system("cls");
+    printf("Check");
+}
 
-    // Q: why use do while loop?
-    // A: because you need to run the functionality first before checking if their sentinel is suggesting to stop or not
+void CustomerMenu(char user[], int *balance)
+{
+    int temp;
 
-    // Q: what difference of continue and break int switch?
-    // A: There is non when it comes to using conditional
+    do
+    {
+        system("cls");
+        printf("-----  ATM SYSTEM 2  -----\n\n");
+        printf("> Welcome %s\n\n", user);
 
+        printf("1 Check Balance\n");
+        printf("2 Withdraw\n");
+        printf("3 Deposit\n");
+        printf("4 Logout\n");
+        printf("\n");
+        printf("Input Number: ");
+        scanf("%d", &temp);
 
+        system("cls");
+
+        printf("-----  ATM SYSTEM 2  -----\n");
+        switch(temp)
+        {
+        case 1:
+            printf("     Checking Balance\n");
+            printf("      > P %d\n", *balance);
+
+            system("pause");
+            system("cls");
+            break;
+        case 2:
+            printf("> How Much to Withdraw: ");
+            scanf("%d", &temp);
+
+            if (temp > *balance)
+            {
+                printf("\n--------------------------\n");
+                printf("> Balance Insufficient!");
+                system("pause");
+                system("cls");
+                continue;
+            }
+
+            *balance -= temp;
+
+            printf("\n--------------------------\n");
+            printf("> Balance: %d\n", *balance);
+
+            system("pause");
+            system("cls");
+            break;
+        case 3:
+            printf("> How Much to Deposit: ");
+            scanf("%d", &temp);
+
+            *balance += temp;
+
+            printf("\n--------------------------\n");
+            printf("> Balance: %d\n", *balance);
+
+            system("pause");
+            system("cls");
+            break;
+        case 4:
+            printf("Thank you for your Time\n");
+            system("pause");
+            system("cls");
+            break;
+        default:
+            printf("Invalid Input!");
+            break;
+        }
+
+    } while(1);
+}
