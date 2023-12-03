@@ -1,4 +1,5 @@
 # depslib dependency file v1.0
-1701188628 source:d:\codes\fresh_start\c++\c\main.c
+1701610499 source:d:\codes\fresh_start\c++\c\main.c
 	<stdio.h>
+	<stdlib.h>
 
