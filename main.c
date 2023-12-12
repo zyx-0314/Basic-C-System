@@ -8,7 +8,7 @@ void DecimalToBinary(int);
 
 int main()
 {
-	int number, choice, sub_choice = 0, ;
+	int number, choice, sub_choice = 0;
 	choice = MainMenu();// should receive the return value of MainMenu
 
 	printf("Enter a number: ");
