@@ -8,6 +8,7 @@ void DecimalToBinary(int);
 void DecimalToHexadecimal(int);
 void DecimalToOctal(int);
 
+
 int main()
 {
 	int number, choice, sub_choice = 0;
@@ -34,10 +35,24 @@ int main()
 
 			switch (conversion_choice)
 			{
-			case1:
+			case 1:
 				decimal = BinaryToDecimal(number);
+				// asking for the function of binary to decimal. Since it is a return type function, it will return the value of decimal(where in a way decimal can also be considered as the number that the user inputted)
 				printf("Binary: %d\nDecimal: %d", number, decimal);
 				break;
+			case 2:
+			    decimal = BinaryToDecimal(number);
+				printf("Binary %d\n",number);
+			    DecimalToHexadecimal(decimal);
+				/*Void functions are created and used just like value-returning functions except they do not return a value after the function executes. 
+                In lieu of a data type, void functions use the keyword "void."
+                A void function performs a task, and then control returns back to the caller--but, it does not return a value.*/
+				break;
+			case 3:
+			    decimal= BinaryToDecimal(number);
+				printf("Binary: %d", number);
+				DecimalToOctal(decimal);
+				break;	
 			default:
 				break;
 			}
@@ -55,27 +70,35 @@ int main()
 	{
 		sub_choice = SubMenu("Decimal");
 
-		printf("What kind of converstion do you want to do?\n");
-		printf("1. Decimal to Binary\n");
-		printf("2. Decimal to Hexadecimal\n");
-		printf("3. Decimal to Octal\n");
-		printf("Enter your choice: ");
-		scanf("%d", &conversion_choice);
-
 		if (sub_choice == 1)
 		{
-			printf("Decimal: %d\n", number);
-			DecimalToBinary(number);
+			printf("What kind of converstion do you want to do?\n");
+			printf("1. Decimal to Binary\n");
+			printf("2. Decimal to Hexadecimal\n");
+			printf("3. decimal to Octal\n");
+			printf("Enter your choice: ");
+			scanf("%d", &conversion_choice);
+
+			switch (conversion_choice)
+			{
+			case 1:
+				printf("Decimal: %d\n",number);
+				DecimalToBinary(number);
+				break;
+			case 2:
+			    printf("Decimal: %d\n",number);
+				DecimalToHexadecimal(number);
+				break;
+			case 3:
+			    printf("Decimal: %d\n", number);
+				DecimalToOctal(number);
+				break;	
+			default:
+				break;
+			}
 		}
 		else if (sub_choice == 2)
 		{
-			printf("Decimal: %d\n", number);
-			DecimalToHexadecimal(number);
-		}
-		else if (sub_choice == 3)
-		{
-			printf("Decimal: %d\n", number);
-			DecimalToOctal(number);
 		}
 		else
 		{
@@ -155,7 +178,6 @@ void DecimalToBinary(int decimal)
 	}
 	printf("\n");
 }
-
 void DecimalToHexadecimal(int decimal)
 {
 	char hexadecimal[20];
